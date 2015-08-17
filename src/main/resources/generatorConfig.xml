@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">  
+<generatorConfiguration>    
+<!-- 数据库驱动-->    
+    <classPathEntry location="D:\maven\Repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>    
+    <context id="DB2Tables"  targetRuntime="MyBatis3">    
+        <commentGenerator>    
+            <property name="suppressDate" value="true"/>    
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->    
+            <property name="suppressAllComments" value="true"/>    
+        </commentGenerator>    
+        <!--数据库链接URL，用户名、密码 -->    
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/project" userId="wangzch" password="p84860278">    
+        </jdbcConnection>
+        <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->    
+        <javaTypeResolver>    
+            <property name="forceBigDecimals" value="false"/>    
+        </javaTypeResolver>    
+        <!-- 生成模型的包名和位置-->    
+        <javaModelGenerator targetPackage="com.hippo.vo" targetProject="Project" >  
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->  
+            <property name="enableSubPackages" value="true"/>  
+            <!-- 是否针对string类型的字段在set的时候进行trim调用 -->  
+            <property name="trimStrings" value="true"/>  
+        </javaModelGenerator>    
+        <!-- 生成映射文件的包名和位置-->    
+        <sqlMapGenerator targetPackage="com.hippo.mapping" targetProject="Project">    
+            <property name="enableSubPackages" value="true"/>    
+        </sqlMapGenerator>    
+        <!-- 生成DAO的包名和位置-->    
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.hippo.dao" targetProject="Project">    
+            <property name="enableSubPackages" value="true"/>    
+        </javaClientGenerator>    
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->    
+        <table tableName="sys_url_permission" domainObjectName="ChainPermission" enableCountByExample="false" 
+        enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
+        selectByExampleQueryId="false"></table>
+        <!-- 忽略列，不生成bean 字段   
+            <ignoreColumn column="FRED" />    
+        -->
+    </context>    
+</generatorConfiguration>  

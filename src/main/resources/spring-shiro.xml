@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:cache="http://www.springframework.org/schema/cache"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    					http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-4.1.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+                        http://www.springframework.org/schema/tx
+ 						http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+ 						http://www.springframework.org/schema/cache
+ 						http://www.springframework.org/schema/cache/spring-cache-4.1.xsd">
+ 	<!-- 配置权限管理器 -->  
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">    
+        <!-- ref对应我们写的realm  MyShiro -->  
+        <property name="realm" ref="myShiro"/>    
+        <!-- 使用下面配置的缓存管理器  -->
+        <property name="cacheManager" ref="cacheManager"/>  
+    </bean>
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager"  p:cache-manager-ref="ehcache"/>
+	
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+    	p:configLocation="classpath:ehcache-shiro.xml" p:shared="true"/>
+    	
+    <bean id="myShiro" class="com.hippo.service.permission.MyShiro"> 
+        <property name="credentialsMatcher" ref="passwordMatcher"></property> 
+    </bean> 
+    <bean id="passwordMatcher" class="com.hippo.service.permission.PasswordHashedMatcher">
+       	<!-- MD5或者SHA-1，如果对密码安全有更高要求可以用SHA-256 -->
+   		<property name="hashAlgorithmName" value="md5"></property>
+   		<!-- hashIterations迭代次数，默认值是1 -->
+        <property name="hashIterations" value="2"></property>
+        <!-- true，此时用的是密码加密用的是Hex编码；false时用Base64编码 -->
+        <property name="storedCredentialsHexEncoded" value="true"></property> 
+    </bean>
+    
+	<bean id="chainDefinitionSectionMetaSource" class="com.hippo.service.permission.ChainDefinitionSectionMetaSource">  
+	    <property name="filterChainDefinitions">  
+	        <value>
+	        	/register.jsp = anon
+	        	/register = anon
+	        	/registerstep2 = anon
+	        	/isExistUser = anon
+	        	/img/** = anon
+	        	/assets/** = anon
+	        	/captchaCode = anon
+	        	/** = authc
+	        </value>  
+	    </property>  
+	</bean> 
+	
+	<bean id="myCaptchaFilter" class="com.hippo.filter.CaptchaFormAuthenticationFilter"/>
+	   
+    <!-- 配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致 -->  
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">   
+        <!-- 调用我们配置的权限管理器 -->   
+        <property name="securityManager" ref="securityManager"/>   
+        <!-- 配置我们的登录请求地址 -->   
+        <property name="loginUrl" value="/login"/>    
+        <!-- 配置我们在登录页登录成功后的跳转地址，如果你访问的是非/login地址，则跳到您访问的地址   -->
+        <property name="successUrl" value="/main"/>    
+        <!-- 如果您请求的资源不再您的权限范围，则跳转到/403请求地址 -->  
+        <property name="unauthorizedUrl" value="/403"/>
+        <property name="filters">
+		    <map>
+		        <entry key="authc" value-ref="myCaptchaFilter"/>
+		    </map>
+		</property>
+        <!-- 动态从数据库取权限 -->  
+        <property name="filterChainDefinitionMap" ref="chainDefinitionSectionMetaSource"/>  
+    </bean>  
+     <!-- 
+ 	<bean id="passwordHelper" class="com.shinowit.framework.security.PasswordHelper"/>
+ 	-->     
+    <!-- shiiro注解控制权限 -->    
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+</beans> 

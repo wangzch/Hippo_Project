@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hippo.dao.IChainPermissionDao" >
+  <resultMap id="BaseResultMap" type="com.hippo.vo.ChainPermission" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="permission_type" property="permissionType" jdbcType="VARCHAR" />
+    <result column="url_name" property="urlName" jdbcType="VARCHAR" />
+    <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    <result column="edit_date" property="editDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, url, permission_type, url_name, permission_name, comment, status, edit_user, 
+    edit_date
+  </sql>
+  <select id="getAllChainPermission" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_url_permission
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_url_permission
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_url_permission
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hippo.vo.ChainPermission" >
+    insert into sys_url_permission (id, url, permission_type, 
+      url_name, permission_name, comment, 
+      status, edit_user, edit_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{permissionType,jdbcType=VARCHAR}, 
+      #{urlName,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{editUser,jdbcType=VARCHAR}, #{editDate,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hippo.vo.ChainPermission" >
+    insert into sys_url_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="permissionType != null" >
+        permission_type,
+      </if>
+      <if test="urlName != null" >
+        url_name,
+      </if>
+      <if test="permissionName != null" >
+        permission_name,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="editUser != null" >
+        edit_user,
+      </if>
+      <if test="editDate != null" >
+        edit_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null" >
+        #{permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="urlName != null" >
+        #{urlName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionName != null" >
+        #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="editUser != null" >
+        #{editUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editDate != null" >
+        #{editDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hippo.vo.ChainPermission" >
+    update sys_url_permission
+    <set >
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null" >
+        permission_type = #{permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="urlName != null" >
+        url_name = #{urlName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionName != null" >
+        permission_name = #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="editUser != null" >
+        edit_user = #{editUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editDate != null" >
+        edit_date = #{editDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hippo.vo.ChainPermission" >
+    update sys_url_permission
+    set url = #{url,jdbcType=VARCHAR},
+      permission_type = #{permissionType,jdbcType=VARCHAR},
+      url_name = #{urlName,jdbcType=VARCHAR},
+      permission_name = #{permissionName,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      edit_user = #{editUser,jdbcType=VARCHAR},
+      edit_date = #{editDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
