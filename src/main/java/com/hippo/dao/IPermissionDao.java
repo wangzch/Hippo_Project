@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import com.hippo.vo.Permission;
 
 public interface IPermissionDao {
-    int deleteByPrimaryKey(Integer id);
+	public int deleteByPrimaryKey(Integer id);
 
-    int insert(Permission record);
+    public int insert(Permission record);
 
-    int insertSelective(Permission record);
+    public int insertSelective(Permission record);
 
-    Permission selectByPrimaryKey(Integer id);
+    public Permission selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Permission record);
+    public int updateByPrimaryKeySelective(Permission record);
 
-    int updateByPrimaryKey(Permission record);
+    public int updateByPrimaryKey(Permission record);
     
-    ArrayList<Permission> getPermissionByRoleId(int role_id);
+    public ArrayList<Permission> getPermissionByRoleId(int role_id);
 }

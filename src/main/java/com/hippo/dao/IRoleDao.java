@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import com.hippo.vo.Role;
 
 public interface IRoleDao {
-    int deleteByPrimaryKey(Integer id);
+	public int deleteByPrimaryKey(Integer id);
 
-    int insert(Role record);
+	public int insert(Role record);
 
-    int insertSelective(Role record);
+	public int insertSelective(Role record);
 
-    Role selectByPrimaryKey(Integer id);
+	public Role selectByPrimaryKey(Integer id);
     
-    ArrayList<Role> getRoleByUserId(Integer id);
+	public ArrayList<Role> getRoleByUserId(Integer id);
 
-    int updateByPrimaryKeySelective(Role record);
+	public int updateByPrimaryKeySelective(Role record);
 
-    int updateByPrimaryKey(Role record);
+	public int updateByPrimaryKey(Role record);
 }

@@ -22,10 +22,10 @@ public interface IUserService {
     public Set<String> getRoleNameFromRoleArray(ArrayList<Role> roleArray);  
     
 	//根据登录用户role_id查询权限
-    ArrayList<Permission> getPermissionArrayByRoleId(int role_id);
+    public ArrayList<Permission> getPermissionArrayByRoleId(int role_id);
 
 	//根据登录用户role_id查询权限
-    ArrayList<User> getAllUser();
+    public ArrayList<User> getAllUser();
     
 	//返回权限名称
     public Set<String> getPermissionNameFromArray(ArrayList<Permission> permissionArray);

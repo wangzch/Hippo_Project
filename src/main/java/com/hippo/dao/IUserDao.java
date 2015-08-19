@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import com.hippo.vo.User;
 
 public interface IUserDao {
-    int deleteByPrimaryKey(Integer id);
+	public int deleteByPrimaryKey(Integer id);
 
-    int insert(User record);
+	public int insert(User record);
 
-    int insertSelective(User record);
+	public int insertSelective(User record);
 
-    User selectByPrimaryKey(Integer id);
+	public User selectByPrimaryKey(Integer id);
     
-    User selectByName(String name);
+	public User selectByName(String name);
     
-    ArrayList<User> getAllUser();
+	public ArrayList<User> getAllUser();
 
-    int updateByPrimaryKeySelective(User record);
+	public int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record);
+	public int updateByPrimaryKey(User record);
 }
