@@ -42,12 +42,13 @@
 				<!-- PAGE CONTENT BEGINS -->
 				<div class="row">
 					<div class="col-xs-12">
-						<h3 class="header smaller lighter blue">用户管理</h3>
 						<!-- <div class="table-header"><B>用户管理</B></div> -->
 						<button id="add" class="btn btn-success">
 							<i class="icon-ok"></i>
 							<b>新&nbsp;&nbsp;增</b>
 						</button>
+						<div class="space-4"></div>
+						
 						<div class="table-responsive">
 							<table id="sample-table-2" class="table table-striped table-bordered table-hover">
 								<thead>
@@ -166,10 +167,6 @@
 					</div>
 				</div>
 			</div><!-- /.page-content -->
-			<!-- 回到顶部 -->
-			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-inverse">
-				<i class="icon-double-angle-up icon-only bigger-110"></i>
-			</a>
 		</div><!-- /.main-container -->
 		<div id="add_page" class="modal fade" tabindex="-1">
 			<div class="modal-dialog">

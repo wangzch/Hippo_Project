@@ -51,7 +51,7 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
                 section.put(chainPermission.getUrl(),  chainPermission.getPermissionType());  
             }  
         }  
-  
+        section.put("/**", "authc");
         return section;  
 	}
 

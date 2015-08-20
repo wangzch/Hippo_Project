@@ -24,7 +24,7 @@
     <shiro:lacksPermission name="user:del"> 不具有user:del权限的用户显示此内容 </shiro:lacksPermission><br/>    
     <ul>  
         <c:forEach items="${userList}" var="user">  
-            <li>用户名：${user.name }----密码：${user.password }----<a href="/user/edit/${user.id}">修改用户</a>----<a href="javascript:;" class="del" ref="${user.id }">删除用户</a></li>  
+            <li>用户名：${user.username }----密码：${user.password }----<a href="/user/edit/${user.id}">修改用户</a>----<a href="javascript:;" class="del" ref="${user.id }">删除用户</a></li>  
         </c:forEach>  
     </ul>  
     <script>  

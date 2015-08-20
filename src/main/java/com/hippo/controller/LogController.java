@@ -2,10 +2,6 @@ package com.hippo.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,42 +20,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.hippo.common.Menu;
-import com.hippo.service.IMenuService;
 import com.hippo.service.permission.CaptchaException;
 import com.hippo.service.permission.CaptchaUtil;
 import com.hippo.service.permission.UsernamePasswordCaptchaToken;
-import com.hippo.vo.Node;
 import com.hippo.vo.User;
 
 @Controller  
 public class LogController {
 	
-    @Resource  
-    private IMenuService menuService; 
-    
 	public static final String KEY_CAPTCHA = "SE_KEY_MM_CODE";
 
 	@RequestMapping(value="login",method=RequestMethod.GET)  
     public String loginForm(Model model){  
         model.addAttribute("user", new User());  
-        
-		List<Node> nodesList = new ArrayList<Node>();  
-		List<Node> nodes = menuService.getMenu();
-		for(Node node : nodes){
-			Node nodeObject = new Node();  
-			nodeObject.setId(node.getId()); 
-			nodeObject.setParentid(node.getParentid());
-			nodeObject.setMenuNo(node.getMenuNo());
-			nodeObject.setName(node.getName());
-			nodeObject.setUrl(node.getUrl());
-			nodeObject.setIcon(node.getIcon());
-			nodeObject.setPermission(node.getPermission());
-	        nodesList.add(nodeObject);  	
-		}
-        Menu tree = new Menu(nodes);  
-        System.out.println(tree.buildTree());
-        
         return "login";  
     }  
      

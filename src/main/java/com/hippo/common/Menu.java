@@ -3,6 +3,8 @@ package com.hippo.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+
 import com.hippo.vo.Node;
 
 public class Menu {
@@ -14,28 +16,21 @@ public class Menu {
     }  
       
     public String buildTree(){  
-        html.append("<ul class='nav nav-list'>");  
         for (Node node : nodes) {  
+        	
             Integer id = node.getId();
             String name = node.getName();
             String url = node.getUrl();
             String icon = node.getIcon();
             String permission = node.getPermission();
+            
+        	if(permission != null && !permission.equals("")){
+            	if(!SecurityUtils.getSubject().hasRole(permission)){
+            		continue;
+            	}
+        	}
+
             if (node.getParentid() == null) {
-            	/*
-            	 <li>
-							<a href="#" class="dropdown-toggle">
-								<i class="icon-desktop"></i>
-								<span class="menu-text"> UI 组件 </span>
-
-								<b class="arrow icon-angle-down"></b>
-							</a> 
-            	  
-            	 
-            	 */
-            	if(permission != null && !"".equals(""))
-            		html.append("\r\n<shiro:hasRole name='"+permission+"'>");
-
                 html.append("\r\n<li id= '"+ id +"'>");
                 html.append("\r\n<a href='"+ url +"' class='dropdown-toggle'>");
                 html.append("\r\n<i class= '"+ icon +"'></i>");
@@ -47,11 +42,8 @@ public class Menu {
                 build(node); 
                 
                 html.append("\r\n</li>");
-            	if(permission != null && !"".equals(""))
-            		html.append("\r\n</shiro:hasRole>");
             }  
         }  
-        html.append("\r\n</ul>");  
         return html.toString();  
     }  
       
@@ -74,12 +66,15 @@ public class Menu {
                 String url = child.getUrl();
                 String permission = child.getPermission();
                 
+            	if(permission != null && !permission.equals("")){
+                	if(!SecurityUtils.getSubject().hasRole(permission)){
+                		continue;
+                	}
+            	}
+            	
                 boolean hasChildren = false;
                 if(hasChildren(child))
                 	hasChildren = true;
-
-                if(permission != null && !"".equals(""))
-            		html.append("\r\n<shiro:hasRole name='"+permission+"'>");
 
                 html.append("\r\n<li id= '"+ id +"'>");
                 if(hasChildren){
@@ -95,10 +90,6 @@ public class Menu {
                 
                 if(hasChildren)
                 	build(child); 
-                
-                html.append("\r\n</li>");
-            	if(permission != null && !"".equals(""))
-            		html.append("\r\n</shiro:hasRole>"); 
             }  
             html.append("\r\n</ul>");  
         }   
